@@ -14,7 +14,7 @@ name_on_order = st.text_input("Name on Smoothie")
 st.write("The name on your Smoothie will be", name_on_order)
  
 session = get_active_session()
-my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('SEARCH_ON'))
+my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'),col('FRUIT_ID'))
 #st.dataframe(data=my_dataframe, use_container_width=True)
 #st.stop()
  
@@ -29,7 +29,7 @@ if ingredients_list:
  
     for fruit_chosen in ingredients_list:
         ingredients_string+= fruit_chosen + ' '
-        search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
+        search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'FRUIT_ID'].iloc[0]
         st.write('The search value for ', fruit_chosen,' is ', search_on, '.')
     my_insert_stmt = """ insert into smoothies.public.orders(ingredients,name_on_order)
                         values ('""" + ingredients_string +"""','""" +name_on_order +"""')"""
